@@ -9,6 +9,11 @@ let
     # inherit (foot) terminfo;
   };
 
+  proxyvm = import ../../vm/sys/proxyvm {
+    inherit config;
+    # inherit (foot) terminfo;
+  };
+
   appvm-catgirl = import ../../vm/app/catgirl.nix { inherit config; };
   appvm-lynx = import ../../vm/app/lynx.nix { inherit config; };
 in
@@ -20,6 +25,9 @@ runCommand "ext.ext4" {
   cd root
 
   tar -C ${netvm} -c data | tar -C svc -x
+  chmod +w svc/data
+
+  tar -C ${proxyvm} -c data | tar -C svc -x
   chmod +w svc/data
 
   tar -C ${appvm-catgirl} -c . | tar -C svc/data/appvm-catgirl -x

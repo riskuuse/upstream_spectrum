@@ -5,12 +5,13 @@
 , terminfo ? config.pkgs.foot.terminfo
 }:
 
-config.pkgs.pkgsStatic.callPackage (
+config.pkgs.callPackage (
 
 { lib, stdenvNoCC, runCommand, writeReferencesToFile, buildPackages
 , jq, s6-rc, tar2ext4, util-linux, xorg
 , busybox, connmanMinimal, dbus, execline, kmod, mdevd, nftables, s6
 , s6-linux-init
+, mitmproxy, snort, wireguard-tools
 }:
 
 let
@@ -21,7 +22,7 @@ let
   connman = connmanMinimal;
 
   packages = [
-    connman dbus execline kmod mdevd s6 s6-linux-init s6-rc
+    connman dbus execline kmod mdevd s6 s6-linux-init s6-rc mitmproxy snort wireguard-tools
 
     (busybox.override {
       extraConfig = ''
@@ -68,6 +69,8 @@ let
       DRM_BOCHS = yes;
       DRM = yes;
       AGP = yes;
+#      NF_NAT_REDIRECT = yes;
+#      NFT_REDIR = module;
     };
   };
 in

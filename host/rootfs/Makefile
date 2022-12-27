@@ -149,7 +149,7 @@ run: build/live.img $(EXT_FS) build/rootfs.verity.roothash
 	truncate -s +10G /proc/self/fd/3 && \
 	exec $(QEMU_KVM) -cpu host -m 2G \
 	    -machine q35,kernel=$(KERNEL),kernel-irqchip=split,initrd=$(INITRAMFS) \
-	    -display gtk,gl=on \
+	    -display gtk,gl=off \
 	    -qmp unix:vmm.sock,server,nowait \
 	    -monitor vc \
 	    -parallel none \
@@ -157,6 +157,7 @@ run: build/live.img $(EXT_FS) build/rootfs.verity.roothash
 	    -drive file=/proc/self/fd/3,if=virtio,format=raw \
 	    -append "console=ttyS0 roothash=$$(< build/rootfs.verity.roothash) ext=/dev/vdb intel_iommu=on" \
 	    -device intel-iommu,intremap=on \
-	    -device virtio-vga-gl \
-	    -device vhost-vsock-pci,guest-cid=3
+	    -device virtio-vga 
+#	    -usbdevice tablet \
+#	    -device vhost-vsock-pci,guest-cid=3
 .PHONY: run

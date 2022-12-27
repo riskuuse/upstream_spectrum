@@ -54,7 +54,15 @@ VM_FILES = \
 	etc/passwd \
 	etc/s6-linux-init/run-image/service/getty-hvc0/run \
 	etc/s6-linux-init/scripts/rc.init \
-	etc/sysctl.conf
+	etc/sysctl.conf \
+	.mitmproxy/mitmproxy-ca-cert.cer \
+	.mitmproxy/mitmproxy-ca-cert.p12 \
+	.mitmproxy/mitmproxy-ca-cert.pem \
+	.mitmproxy/mitmproxy-ca.p12 \
+	.mitmproxy/mitmproxy-ca.pem \
+	.mitmproxy/mitmproxy-dhparam.pem \
+	start-mitmproxy.sh
+
 VM_DIRS = dev etc/s6-linux-init/env run proc sys var/lib/connman
 
 # These are separate because they need to be included, but putting
